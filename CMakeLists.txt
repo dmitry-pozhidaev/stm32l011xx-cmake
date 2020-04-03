@@ -90,8 +90,9 @@ file (GLOB_RECURSE SOURCE src/*.c
 
 add_executable(${PROJECT_NAME}.elf ${SOURCE} ${CMSIS} ${STARTUP})
 
-set(CMAKE_EXE_LINKER_FLAGS "-mcpu=cortex-m0plus -mthumb -specs=nano.specs -T${LINKER_SCRIPT} -lc -lm -lnosys -Wl,-Map=${MAP_FILE},--cref -Wl,--gc-sections")
+set(CMAKE_EXE_LINKER_FLAGS "-mcpu=cortex-m0plus -mthumb -specs=nano.specs -specs=nosys.specs -T${LINKER_SCRIPT} -lc -lm -lnosys -Wl,-Map=${MAP_FILE},--cref -Wl,--gc-sections")
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 
 set(ELF_FILE ${PROJECT_NAME}.elf)
 set(BIN_FILE ${PROJECT_NAME}.bin)
