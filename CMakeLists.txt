@@ -97,6 +97,7 @@ set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 set(ELF_FILE ${PROJECT_NAME}.elf)
 set(BIN_FILE ${PROJECT_NAME}.bin)
 set(HEX_FILE ${PROJECT_NAME}.hex)
+set(BIN_EEPROM_FILE ${PROJECT_NAME}.eeprom.bin)
 
 add_custom_command(
         TARGET ${PROJECT_NAME}.elf
@@ -104,4 +105,5 @@ add_custom_command(
         COMMAND arm-none-eabi-objcopy -O ihex ${ELF_FILE} ${HEX_FILE} # convert .elf to .hex
         COMMAND arm-none-eabi-objcopy -O binary ${ELF_FILE} ${BIN_FILE} # convert .elf to .bin
         COMMAND arm-none-eabi-size --format=berkeley ${ELF_FILE}
+        COMMAND arm-none-eabi-objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 -O binary ${ELF_FILE} ${BIN_EEPROM_FILE}
 )
