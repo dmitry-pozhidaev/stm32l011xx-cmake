@@ -43,6 +43,7 @@ MEMORY
 {
 FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 16K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 2K
+EEPROM (rw)     : ORIGIN = 0x8080000, LENGTH = 512
 }
 
 /* Define output sections */
@@ -72,7 +73,14 @@ SECTIONS
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
   } >FLASH
-
+  
+  .eeprom :
+  {
+    . = ALIGN(4);
+    *(.eeprom)
+    . = ALIGN(4);
+  } >EEPROM
+  
   /* Constant data goes into FLASH */
   .rodata :
   {
